@@ -192,9 +192,6 @@ class BertEmbeddings(nn.Module):
 
         seq_length = input_shape[1]
 
-        if position_ids is None:
-            position_ids = self.position_ids[:, past_key_values_length : seq_length + past_key_values_length]
-
         if token_type_ids is None:
             token_type_ids = torch.zeros(input_shape, dtype=torch.long, device=self.position_ids.device)
 
@@ -205,7 +202,7 @@ class BertEmbeddings(nn.Module):
         embeddings = inputs_embeds + token_type_embeddings
         if self.position_embedding_type == "absolute":
             if position_ids is None:
-                position_ids = self.position_ids[:, :seq_length]
+                position_ids = self.position_ids[:, past_key_values_length: seq_length + past_key_values_length]
             position_embeddings = self.position_embeddings(position_ids)
             embeddings += position_embeddings
         embeddings = self.LayerNorm(embeddings)

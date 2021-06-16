@@ -1,6 +1,13 @@
 TAPAS
 -----------------------------------------------------------------------------------------------------------------------
 
+.. note::
+
+    This is a recently introduced model so the API hasn't been tested extensively. There may be some bugs or slight
+    breaking changes to fix them in the future.
+
+
+
 Overview
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -42,7 +49,8 @@ entailment (a binary classification task). For more details, see their follow-up
 intermediate pre-training <https://www.aclweb.org/anthology/2020.findings-emnlp.27/>`__ by Julian Martin Eisenschlos,
 Syrine Krichene and Thomas Müller.
 
-The original code can be found `here <https://github.com/google-research/tapas>`__.
+This model was contributed by `nielsr <https://huggingface.co/nielsr>`__. The original code can be found `here
+<https://github.com/google-research/tapas>`__.
 
 Tips:
 
@@ -258,7 +266,7 @@ conversational**. In case your dataset involves conversational questions (such a
 together the ``queries``, ``answer_coordinates`` and ``answer_text`` per table (in the order of their ``position``
 index) and batch encode each table with its questions. This will make sure that the ``prev_labels`` token types (see
 docs of :class:`~transformers.TapasTokenizer`) are set correctly. See `this notebook
-<https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Fine_tuning_TapasForQuestionAnswering_on_SQA.ipynb>`__
+<https://github.com/NielsRogge/Transformers-Tutorials/blob/master/TAPAS/Fine_tuning_TapasForQuestionAnswering_on_SQA.ipynb>`__
 for more info.
 
 **STEP 4: Train (fine-tune) TapasForQuestionAnswering**
@@ -339,7 +347,7 @@ of that:
         ...         inputs, 
         ...         outputs.logits.detach(), 
         ...         outputs.logits_aggregation.detach()
-        ...)
+        ... )
 
         >>> # let's print out the results:
         >>> id2aggregation = {0: "NONE", 1: "SUM", 2: "AVERAGE", 3:"COUNT"}
@@ -375,7 +383,7 @@ of that:
 In case of a conversational set-up, then each table-question pair must be provided **sequentially** to the model, such
 that the ``prev_labels`` token types can be overwritten by the predicted ``labels`` of the previous table-question
 pair. Again, more info can be found in `this notebook
-<https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Fine_tuning_TapasForQuestionAnswering_on_SQA.ipynb>`__.
+<https://github.com/NielsRogge/Transformers-Tutorials/blob/master/TAPAS/Fine_tuning_TapasForQuestionAnswering_on_SQA.ipynb>`__.
 
 
 Tapas specific outputs
